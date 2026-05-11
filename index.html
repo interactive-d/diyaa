@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>✨ A Birthday Wish Just for You ✨</title>
+  <!-- Google Fonts & minimal icons (Font Awesome) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #fff9f0 0%, #ffe6e0 100%);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    /* main card container — minimal glassmorph touch */
+    .birthday-container {
+      max-width: 1300px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(2px);
+      border-radius: 3rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6);
+      padding: 2rem 2rem 2rem 2rem;
+      transition: all 0.3s ease;
+    }
+
+    /* headline & intro */
+    .wish-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .wish-header h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      background: linear-gradient(120deg, #c44f4f, #e68a2e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .wish-header p {
+      color: #7b5a4b;
+      font-weight: 400;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* GIFT BOX SECTION */
+    .gift-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 2rem 0 3rem;
+      transition: all 0.2s;
+    }
+
+    .gift-card {
+      cursor: pointer;
+      background: #ebc7b0;
+      width: 280px;
+      height: 280px;
+      border-radius: 2rem;
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 20%, #ffddd3, #f7bc9c);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gift-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.3);
+    }
+
+    .gift-card i {
+      font-size: 5rem;
+      color: #fff1e6;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      margin-bottom: 1.2rem;
+    }
+
+    .gift-card span {
+      font-size: 1.5rem;
+      font-weight: 600;
+      background: #fff0e4;
+      padding: 0.3rem 1.3rem;
+      border-radius: 60px;
+      color: #bd6f3a;
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+
+    .gift-ribbon {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 35px;
+      background: #ffb485;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .gift-ribbon::before,
+    .gift-ribbon::after {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 100%;
+      background: #e69055;
+      top: 0;
+    }
+    .gift-ribbon::before { left: 20%; transform: skew(20deg); }
+    .gift-ribbon::after { right: 20%; transform: skew(-20deg); }
+
+    .click-hint {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      background: #fae5d4cc;
+      backdrop-filter: blur(4px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      color: #aa6a40;
+      font-weight: 500;
+    }
+
+    /* SURPRISE CONTENT (hidden initially) */
+    .surprise-content {
+      display: none;
+      animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* video block minimal */
+    .video-wrapper {
+      background: #fef2e9;
+      border-radius: 2rem;
+      padding: 1rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      border-radius: 1.5rem;
+      display: block;
+      background: #0000000d;
+      outline: none;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.1);
+    }
+
+    /* pictures of her — minimal gallery */
+    .gallery-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin: 2rem 0 1rem 0;
+      color: #996b4a;
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-left: 4px solid #f3b28b;
+      padding-left: 1rem;
+    }
+
+    .pictures-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .picture-card {
+      background: white;
+      border-radius: 1.8rem;
+      overflow: hidden;
+      width: 200px;
+      box-shadow: 0 10px 18px -8px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+      border: 1px solid #ffe0cf;
+    }
+
+    .picture-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .picture-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .picture-card .caption {
+      padding: 0.6rem 0.8rem;
+      background: #fffcf8;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #aa754f;
+      letter-spacing: 0.3px;
+    }
+
+    /* message popups container */
+    .popups-area {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .popup-message {
+      background: #fffaf5;
+      border-radius: 2rem;
+      padding: 1rem 1.6rem;
+      max-width: 100%;
+      width: 100%;
+      box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+      border-left: 7px solid #f7bc9c;
+      transition: all 0.3s;
+      animation: gentlePop 0.45s ease-out forwards;
+      font-weight: 500;
+      color: #3b2c23;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(3px);
+      background: #ffffffdd;
+    }
+
+    @keyframes gentlePop {
+      0% { opacity: 0; transform: scale(0.92) translateX(-12px); }
+      80% { transform: scale(1.01); }
+      100% { opacity: 1; transform: scale(1) translateX(0); }
+    }
+
+    .popup-message i {
+      font-size: 1.8rem;
+      color: #ea9e6b;
+    }
+
+    .popup-message span {
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 460;
+    }
+
+    /* small footer */
+    .signature {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 0.85rem;
+      color: #b1896b;
+      font-weight: 400;
+      border-top: 1px solid #ffdecb;
+      padding-top: 1.5rem;
+    }
+
+    /* responsive */
+    @media (max-width: 680px) {
+      .birthday-container {
+        padding: 1.5rem;
+      }
+      .picture-card {
+        width: 160px;
+      }
+      .picture-card img {
+        height: 160px;
+      }
+      .gift-card {
+        width: 230px;
+        height: 230px;
+      }
+      .gift-card i {
+        font-size: 4rem;
+      }
+      .wish-header h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .pictures-grid {
+        gap: 0.8rem;
+      }
+      .picture-card {
+        width: 140px;
+      }
+      .popup-message {
+        padding: 0.8rem 1.2rem;
+      }
+    }
+
+    button, .gift-card {
+      user-select: none;
+    }
+
+    /* subtle */
+    .video-wrapper video::-webkit-media-controls {
+      border-radius: 1rem;
+    }
+  </style>
+</head>
+<body>
+<div class="birthday-container">
+  <div class="wish-header">
+    <h1>✨ To the most beautiful soul ✨</h1>
+    <p>Every star shines brighter because of you</p>
+  </div>
+
+  <!-- GIFT BOX section (initially visible) -->
+  <div class="gift-section" id="giftSection">
+    <div class="gift-card" id="giftBox">
+      <div class="gift-ribbon"></div>
+      <i class="fas fa-gift"></i>
+      <span>OPEN ME</span>
+    </div>
+    <div class="click-hint">
+      <i class="fas fa-hand-pointer"></i>  tap the gift — a magical surprise awaits
+    </div>
+  </div>
+
+  <!-- SURPRISE CONTENT: video, pictures, message popups (hidden at first) -->
+  <div class="surprise-content" id="surpriseContent">
+    <!-- Video player -->
+    <div class="video-wrapper">
+      <video id="birthdayVideo" preload="metadata" controls playsinline>
+        <!-- beautiful birthday candle / celebration video (royalty-free, Pixabay) -->
+        <source src="diyaa.mp4" type="video/mp4">
+        Your browser does not support the video tag, but the feeling is still magical ✨
+      </video>
+    </div>
+
+    <!-- Pictures of her (special memories) -->
+    <div class="gallery-title">
+      <i class="fas fa-camera-retro"></i>  glimpses of radiance — moments of you
+    </div>
+    <div class="pictures-grid" id="galleryGrid">
+      <!-- images that reflect her beauty and joy (stock images with sweet captions) -->
+      <div class="picture-card">
+        <img src="diya1.webp"alt="joyful smile" loading="lazy">
+        <div class="caption">🌸 your joyful laugh</div>
+      </div>
+      <div class="picture-card">
+<img src="diya2.webp"alt="Special Memory" loading="lazy">        <div class="caption">🌻 wildflower grace</div>
+      </div>
+      <div class="picture-card">
+<img src="diya3.webp"alt="Radiant Energy" loading="lazy">
+        <div class="caption">💖 warm & luminous</div>
+      </div>
+      <div class="picture-card">
+       <img src="diya4.webp"alt="Elegant Soul" loading="lazy">
+        <div class="caption">✨ elegance & spark</div>
+      </div>
+    </div>
+
+    <!-- heartwarming messages popups container (dynamically populated) -->
+    <div class="popups-area" id="popupsContainer"></div>
+  </div>
+
+  <div class="signature">
+    <i class="fas fa-heart" style="color:#e68a2e;"></i> made with endless admiration — happy birthday, you timeless wonder
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- precious heartfelt messages to feel her special -----
+    const valuableMessages = [
+      { icon: "fas fa-star", text: "You make ordinary days feel like poetry. Your presence is the most beautiful gift the world ever received." },
+      { icon: "fas fa-feather-alt", text: "The kindest soul, the brightest light — today the universe celebrates you and your incredible journey." },
+      { icon: "fas fa-crown", text: "You deserve every flower, every sunset, and every joy. Never forget how magnificent you truly are." },
+      { icon: "fas fa-heart", text: "You are rare in the most breathtaking way. May this year bring you magic, peace and everything you’ve dreamed of." }
+    ];
+
+    // references
+    const giftSection = document.getElementById('giftSection');
+    const surpriseDiv = document.getElementById('surpriseContent');
+    const giftBox = document.getElementById('giftBox');
+    const videoEl = document.getElementById('birthdayVideo');
+    const popupsContainer = document.getElementById('popupsContainer');
+
+    let isOpened = false;          // prevent multiple openings
+
+    // helper: show message popups one after another with a delicate popup effect
+    function spawnMessagePopups() {
+      // clear any existing messages (just in case)
+      popupsContainer.innerHTML = '';
+      
+      // loop through each message and create DOM element with staggered delay
+      valuableMessages.forEach((msg, idx) => {
+        setTimeout(() => {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = 'popup-message';
+          messageDiv.style.opacity = '0';
+          messageDiv.style.animation = 'gentlePop 0.4s ease-out forwards';
+          messageDiv.innerHTML = `
+            <i class="${msg.icon}"></i>
+            <span>${msg.text}</span>
+          `;
+          popupsContainer.appendChild(messageDiv);
+          // scroll to show last message smoothly only if needed
+          if (idx === valuableMessages.length - 1) {
+            setTimeout(() => {
+              messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+          }
+        }, idx * 280); // each popup appears with a short delay, like blossoms
+      });
+    }
+
+    // handling gift opening: shows surprise, plays video, displays images and messages
+    function openGift() {
+      if (isOpened) return;      // prevent double opening
+      isOpened = true;
+
+      // 1. hide gift section with fade effect
+      if (giftSection) {
+        giftSection.style.transition = 'opacity 0.3s ease, transform 0.2s';
+        giftSection.style.opacity = '0';
+        giftSection.style.transform = 'scale(0.96)';
+        setTimeout(() => {
+          giftSection.style.display = 'none';
+        }, 280);
+      }
+      
+      // 2. Display surprise container (which contains video, pictures gallery & popup area)
+      surpriseDiv.style.display = 'block';
+      
+      // 3. attempt to play video with sound - due to user gesture (click on gift) browser allows play()
+      if (videoEl) {
+        // make sure video is loaded and try to play
+        videoEl.play().catch(err => {
+          // fallback: show small console info but not intrusive; user can manually click play
+          console.log("Video autoplay blocked? User can tap play to enjoy.", err);
+          // we still add a subtle small hint (only if needed) but not breaking experience
+          const videoWrap = document.querySelector('.video-wrapper');
+          if (videoWrap && !videoWrap.querySelector('.play-hint')) {
+            const hintSpan = document.createElement('div');
+            hintSpan.className = 'click-hint';
+            hintSpan.style.marginTop = '0.6rem';
+            hintSpan.style.fontSize = '0.7rem';
+            hintSpan.style.backgroundColor = '#ffe2d1';
+            hintSpan.style.borderRadius = '30px';
+            hintSpan.style.padding = '0.3rem 1rem';
+            hintSpan.style.display = 'inline-block';
+            hintSpan.innerHTML = '<i class="fas fa-play-circle"></i> click play to enjoy the melody';
+            videoWrap.appendChild(hintSpan);
+            setTimeout(() => hintSpan.style.opacity = '0.8', 20);
+          }
+        });
+      }
+      
+      // 4. pictures appear automatically because they were always inside surprise container — they fade in with parent animation.
+      //    But we add small extra micro-interaction: each picture-card softly fades in with delay? Already appears together, but we add subtle 'slide-up' effect for each images.
+      const allPics = document.querySelectorAll('.picture-card');
+      if (allPics.length) {
+        allPics.forEach((pic, idx) => {
+          pic.style.opacity = '0';
+          pic.style.transform = 'translateY(12px)';
+          pic.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+          setTimeout(() => {
+            pic.style.opacity = '1';
+            pic.style.transform = 'translateY(0)';
+          }, 80 + idx * 50);
+        });
+      }
+
+      // 5. start showing message popups (valuable & heartfelt)
+      spawnMessagePopups();
+
+      // 6. (Bonus) add a tiny confetti? not necessary, but minimal joyous touch: maybe floating hearts are cute but keep minimal.
+      //    create minimal floating particle effect that fades.
+      createSubtleSparkle();
+    }
+
+    // optional delicate sparkle effect upon opening (light & minimal)
+    function createSubtleSparkle() {
+      const containerRect = document.querySelector('.birthday-container').getBoundingClientRect();
+      for (let i = 0; i < 18; i++) {
+        const spark = document.createElement('div');
+        spark.innerHTML = '✨';
+        spark.style.position = 'fixed';
+        spark.style.left = Math.random() * window.innerWidth + 'px';
+        spark.style.top = Math.random() * window.innerHeight + 'px';
+        spark.style.fontSize = Math.random() * 18 + 10 + 'px';
+        spark.style.pointerEvents = 'none';
+        spark.style.opacity = '0.8';
+        spark.style.zIndex = '999';
+        spark.style.transition = 'transform 0.8s ease-out, opacity 1s';
+        spark.style.transform = 'translateY(0px) rotate(0deg)';
+        document.body.appendChild(spark);
+        setTimeout(() => {
+          spark.style.transform = `translateY(${Math.random() * -70 - 30}px) rotate(${Math.random() * 40}deg)`;
+          spark.style.opacity = '0';
+        }, 20);
+        setTimeout(() => {
+          spark.remove();
+        }, 1000);
+      }
+    }
+
+    // Event listener for gift box: bind with click 
+    if (giftBox) {
+      giftBox.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openGift();
+      });
+    }
+
+    // also add keyboard or touch support just in case: giftSection click safe
+    // Edge: if people accidentally double click, it's fine due to isOpened guard.
+    // Preload video poster to avoid black screen briefly — video already has poster from first frame, optional
+    videoEl?.load();
+
+    // nice little fallback: if someone clicks on gift section background, but main button is the giftCard.
+    if(giftSection) {
+      giftSection.addEventListener('click', (e) => {
+        if (e.target === giftSection || e.target.closest('.gift-card') === giftBox) return;
+        // else if someone clicks hint area triggers open as well but ensure target not double;
+        if (!isOpened && e.target.closest('.click-hint')) {
+          openGift();
+        }
+      });
+    }
+    
+    // Adding after opening, the screen is scrollable and feel smooth
+    // Preload images: already loading lazy.
+    // additionally, ensure that if video fails to load source, we give fallback but it's fine.
+    // Also to be extra warm: display a lovely welcome message once opened 
+    // (message popups include the most valuable ones)
+  })();
+</script>
+</body>
+</html>
